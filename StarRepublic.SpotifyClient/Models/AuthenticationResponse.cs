@@ -6,7 +6,6 @@ namespace StarRepublic.SpotifyClient.Models
 {
     public sealed class AuthenticationResponse
     {
-
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }
 
@@ -18,6 +17,5 @@ namespace StarRepublic.SpotifyClient.Models
 
         [JsonProperty("refresh_token")]
         public string RefreshToken { get; set; }
-       
     }
 }

@@ -12,7 +12,7 @@ using StarRepublic.SpotifyClient.Models;
 
 namespace StarRepublic.SpotifyClient
 {
-	public sealed class SpotifyAuthClientCredentialsHttpMessageHandler : DelegatingHandler
+    public sealed class SpotifyAuthClientCredentialsHttpMessageHandler : DelegatingHandler
     {
         private const string AuthenticationEndpoint = "https://accounts.spotify.com/api/token";
         private readonly string _clientId;
@@ -61,8 +61,8 @@ namespace StarRepublic.SpotifyClient
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("grant_type", "client_credentials")
-                //new KeyValuePair<string, string>("scope", "")
-            });
+				//new KeyValuePair<string, string>("scope", "")
+			});
 
             var authHeader = BuildAuthHeader();
 
@@ -88,4 +88,3 @@ namespace StarRepublic.SpotifyClient
         }
     }
 }
-

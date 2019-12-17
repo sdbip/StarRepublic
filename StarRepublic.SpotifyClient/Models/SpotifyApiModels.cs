@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace StarRepublic.SpotifyClient.Models
 {
-	public sealed class SearchArtistResponse
+    public sealed class SearchArtistResponse
     {
         [JsonProperty("artists")]
         public SearchArtistCollection Artists { get; set; }
@@ -73,7 +73,6 @@ namespace StarRepublic.SpotifyClient.Models
 
     public sealed class Image
     {
-
         [JsonProperty("height")]
         public int Height { get; set; }
 
