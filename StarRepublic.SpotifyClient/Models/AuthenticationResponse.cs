@@ -4,7 +4,7 @@
 
 namespace StarRepublic.SpotifyClient.Models
 {
-    public class AuthenticationResponse
+    public sealed class AuthenticationResponse
     {
 
         [JsonProperty("access_token")]

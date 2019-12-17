@@ -12,7 +12,7 @@ using StarRepublic.SpotifyClient.Models;
 
 namespace StarRepublic.SpotifyClient
 {
-	public class SpotifyAuthClientCredentialsHttpMessageHandler : DelegatingHandler
+	public sealed class SpotifyAuthClientCredentialsHttpMessageHandler : DelegatingHandler
     {
         private const string AuthenticationEndpoint = "https://accounts.spotify.com/api/token";
         private readonly string _clientId;
