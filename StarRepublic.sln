@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarRepublic.SpotifyClient", "StarRepublic.SpotifyClient\StarRepublic.SpotifyClient.csproj", "{8BEC677C-ADAA-4B68-8C65-EEB0B7F573FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BEC677C-ADAA-4B68-8C65-EEB0B7F573FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BEC677C-ADAA-4B68-8C65-EEB0B7F573FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BEC677C-ADAA-4B68-8C65-EEB0B7F573FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BEC677C-ADAA-4B68-8C65-EEB0B7F573FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
