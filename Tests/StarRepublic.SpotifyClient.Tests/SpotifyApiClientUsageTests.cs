@@ -21,7 +21,9 @@ namespace StarRepublic.SpotifyClient.Tests
 
         private SearchArtistCollection CallClient(string artistName)
         {
-            return client.SearchArtistsAsync(artistName).GetAwaiter().GetResult()?.Artists;
+            return client.SearchArtistsAsync(artistName)
+                .AwaitResult()?
+                .Artists;
         }
     }
 }
