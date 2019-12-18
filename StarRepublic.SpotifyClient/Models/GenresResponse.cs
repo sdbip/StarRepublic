@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace StarRepublic.SpotifyClient.Models
+namespace StarRepublic.SpotifyClient.Models.Genres
 {
     public class GenresResponse
     {

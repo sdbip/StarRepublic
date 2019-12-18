@@ -3,7 +3,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Flurl;
 using Newtonsoft.Json;
-using StarRepublic.SpotifyClient.Models;
+using StarRepublic.SpotifyClient.Models.Artists;
+using StarRepublic.SpotifyClient.Models.Genres;
+using StarRepublic.SpotifyClient.Models.Recommendations;
 
 namespace StarRepublic.SpotifyClient
 {
@@ -57,6 +59,26 @@ namespace StarRepublic.SpotifyClient
             var response = await client.GetStringAsync(url);
 
             return JsonConvert.DeserializeObject<GenresResponse>(response);
+        }
+
+        public async Task<Recommendations> GetRecommendationsAsync(string artistId = null, string trackId = null)
+        {
+            using var client = GetDefaultClient();
+
+            var url = new Url("/v1/recommendations")
+                .SetQueryParams(new
+                {
+                    seed_artists = artistId,
+                    seed_tracks = trackId,
+                    min_energy = 0.4,
+                    min_popularity = 50,
+                    market = "US",
+                    limit = 100
+                });
+
+            var response = await client.GetStringAsync(url);
+
+            return JsonConvert.DeserializeObject<Recommendations>(response);
         }
     }
 }

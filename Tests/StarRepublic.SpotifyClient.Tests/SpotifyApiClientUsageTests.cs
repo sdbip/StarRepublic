@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NUnit.Framework;
 
@@ -27,6 +28,39 @@ namespace StarRepublic.SpotifyClient.Tests
                 .AwaitResult();
 
             Assert.That(response.Genres.Contains("rock"));
+        }
+
+        [Test]
+        public void GetsRecommendationsWithArtistSeed()
+        {
+            var recommendations = client.GetRecommendationsAsync(artistId: "4NHQUGzhtTLFvgF5SZesLK")
+                .AwaitResult();
+
+            Assert.That(recommendations, Is.Not.Null);
+            Assert.That(recommendations.Seeds.Count, Is.EqualTo(1));
+            Assert.That(recommendations.Tracks, Is.Not.Empty);
+        }
+
+        [Test]
+        public void GetsRecommendationsWithTrackSeed()
+        {
+            var recommendations = client.GetRecommendationsAsync(trackId: "0c6xIDDpzE81m2q797ordA")
+                .AwaitResult();
+
+            Assert.That(recommendations, Is.Not.Null);
+            Assert.That(recommendations.Seeds.Count, Is.EqualTo(1));
+            Assert.That(recommendations.Tracks, Is.Not.Empty);
+        }
+
+        [Test]
+        public void GetsRecommendationsWithArtistAndTrackSeed()
+        {
+            var recommendations = client.GetRecommendationsAsync(artistId: "4NHQUGzhtTLFvgF5SZesLK", trackId: "0c6xIDDpzE81m2q797ordA")
+                .AwaitResult();
+
+            Assert.That(recommendations, Is.Not.Null);
+            Assert.That(recommendations.Seeds.Count, Is.EqualTo(2));
+            Assert.That(recommendations.Tracks, Is.Not.Empty);
         }
     }
 }
