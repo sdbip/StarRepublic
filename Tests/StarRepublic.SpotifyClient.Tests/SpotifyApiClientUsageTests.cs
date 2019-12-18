@@ -1,6 +1,5 @@
 using System.Linq;
 using NUnit.Framework;
-using StarRepublic.SpotifyClient.Models;
 
 namespace StarRepublic.SpotifyClient.Tests
 {
@@ -11,19 +10,14 @@ namespace StarRepublic.SpotifyClient.Tests
         [Test]
         public void FindsBonJovi()
         {
-            var artists = CallClient("Bon Jovi");
+            var artists = client.SearchArtistsAsync("Bon Jovi")
+                .AwaitResult()?
+                .Artists;
 
             Assert.That(artists, Is.Not.Null);
             Assert.That(artists.Total, Is.EqualTo(artists.Items.Count));
             Assert.That(artists.Items.Select(artist => artist.Name).Contains("Bon Jovi"));
             Assert.That(artists.Items.Select(artist => artist.Name).Contains("Jon Bon Jovi"));
-        }
-
-        private SearchArtistCollection CallClient(string artistName)
-        {
-            return client.SearchArtistsAsync(artistName)
-                .AwaitResult()?
-                .Artists;
         }
 
         [Test]
