@@ -47,5 +47,16 @@ namespace StarRepublic.SpotifyClient
 
             return JsonConvert.DeserializeObject<SearchArtistResponse>(response);
         }
+
+        public async Task<GenresResponse> GetGenres()
+        {
+            using var client = GetDefaultClient();
+
+            var url = new Url("/v1/recommendations/available-genre-seeds");
+
+            var response = await client.GetStringAsync(url);
+
+            return JsonConvert.DeserializeObject<GenresResponse>(response);
+        }
     }
 }

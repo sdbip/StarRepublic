@@ -25,5 +25,14 @@ namespace StarRepublic.SpotifyClient.Tests
                 .AwaitResult()?
                 .Artists;
         }
+
+        [Test]
+        public void GenresIncludeRock()
+        {
+            var response = client.GetGenres()
+                .AwaitResult();
+
+            Assert.That(response.Genres.Contains("rock"));
+        }
     }
 }
