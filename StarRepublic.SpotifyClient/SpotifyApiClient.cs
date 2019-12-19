@@ -33,9 +33,8 @@ namespace StarRepublic.SpotifyClient
 
         public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName, int? limit = null, int? offset = null)
         {
-            var url = new Url("/v1/search")
-                        .SetQueryParam("q", artistName)
-                        .SetQueryParam("type", "artist");
+            var query = new SearchArtistsQuery(artistName);
+            var url = new Url(query.Url).SetQueryParams(query.Params);
 
             if (limit != null)
                 url = url.SetQueryParam("limit", limit);
@@ -48,23 +47,21 @@ namespace StarRepublic.SpotifyClient
 
         public async Task<GenresResponse> GetGenres()
         {
-            var url = new Url("/v1/recommendations/available-genre-seeds");
-            return await Query<GenresResponse>(url);
+            var query = new GenresQuery();
+            return await QueryAsync(query);
         }
 
         public async Task<RecommendationsResponse> GetRecommendationsAsync(string artistId = null, string trackId = null)
         {
-            var url = new Url("/v1/recommendations")
-                .SetQueryParams(new
-                {
-                    seed_artists = artistId,
-                    seed_tracks = trackId,
-                    min_energy = 0.4,
-                    min_popularity = 50,
-                    market = "US",
-                    limit = 100
-                });
-            return await Query<RecommendationsResponse>(url);
+            var query = new RecommendationsQuery(artistId, trackId);
+            return await QueryAsync(query);
+        }
+
+        public async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query)
+        {
+            var url = new Url(query.Url)
+                .SetQueryParams(query.Params, Flurl.NullValueHandling.Remove);
+            return await Query<TResponse>(url);
         }
 
         private async Task<TResponse> Query<TResponse>(Url url)

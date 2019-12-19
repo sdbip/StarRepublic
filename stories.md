@@ -8,7 +8,6 @@
 
 ## Stories for Refactoring
 
-- Add encapsulations for each request.
 - Add Paging as a Decorator to requests.
 - Should I create a WebAPI? Do I need it?
 - Authentication has a message handler. Do I need that for other requests?
