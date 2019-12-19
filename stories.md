@@ -8,7 +8,6 @@
 
 ## Stories for Refactoring
 
-- SpotifyApiClient contains duplication.
 - Add encapsulations for each request.
 - Add Paging as a Decorator to requests.
 - Should I create a WebAPI? Do I need it?
