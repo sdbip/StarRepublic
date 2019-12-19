@@ -6,8 +6,8 @@ namespace StarRepublic.SpotifyClient
 {
     public sealed class RecommendationsQuery : IQuery<RecommendationsResponse>
     {
-        private readonly string artistId;
-        private readonly string trackId;
+        private readonly string? artistId;
+        private readonly string? trackId;
 
         public string Url => "/v1/recommendations";
         public object Params => new
@@ -20,7 +20,7 @@ namespace StarRepublic.SpotifyClient
             limit = 100
         };
 
-        public RecommendationsQuery(string artistId, string trackId)
+        public RecommendationsQuery(string? artistId, string? trackId)
         {
             this.artistId = artistId;
             this.trackId = trackId;

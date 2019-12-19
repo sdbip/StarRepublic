@@ -16,7 +16,7 @@ namespace StarRepublic.SpotifyClient.Tests
                 .Artists;
 
             Assert.That(artists, Is.Not.Null);
-            Assert.That(artists.Total, Is.EqualTo(artists.Items.Count));
+            Assert.That(artists!.Total, Is.EqualTo(artists.Items.Count));
             Assert.That(artists.Items.Select(artist => artist.Name).Contains("Bon Jovi"));
             Assert.That(artists.Items.Select(artist => artist.Name).Contains("Jon Bon Jovi"));
         }

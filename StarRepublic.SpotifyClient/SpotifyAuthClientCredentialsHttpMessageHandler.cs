@@ -44,7 +44,7 @@ namespace StarRepublic.SpotifyClient
 
             var response = await GetAuthenticationTokenResponse();
 
-            token = response?.AccessToken;
+            token = response.AccessToken;
             if (token == null)
                 throw new AuthenticationException("Spotify authentication failed");
 
@@ -56,7 +56,7 @@ namespace StarRepublic.SpotifyClient
 
         private async Task<AuthenticationResponse> GetAuthenticationTokenResponse()
         {
-            var client = new HttpClient();
+            using var client = new HttpClient();
 
             var content = new FormUrlEncodedContent(new[]
             {
@@ -73,8 +73,7 @@ namespace StarRepublic.SpotifyClient
             var response = await client.SendAsync(requestMessage);
             var responseString = await response.Content.ReadAsStringAsync();
 
-            var authenticationResponse = JsonConvert.DeserializeObject<AuthenticationResponse>(responseString);
-            return authenticationResponse;
+            return JsonConvert.DeserializeObject<AuthenticationResponse>(responseString);
         }
         private string BuildAuthHeader()
         {

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 /* Hint: Use http://jsonutils.com/ to generate models from JSON responses from the API. */
+#nullable disable
 
 namespace StarRepublic.SpotifyClient.Models
 {

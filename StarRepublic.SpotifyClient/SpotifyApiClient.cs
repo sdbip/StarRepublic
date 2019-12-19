@@ -28,7 +28,7 @@ namespace StarRepublic.SpotifyClient
             return await QueryAsync(query);
         }
 
-        public async Task<RecommendationsResponse> GetRecommendationsAsync(string artistId = null, string trackId = null)
+        public async Task<RecommendationsResponse> GetRecommendationsAsync(string? artistId = null, string? trackId = null)
         {
             var query = new RecommendationsQuery(artistId, trackId);
             return await QueryAsync(query);
