@@ -1,8 +1,9 @@
-﻿namespace StarRepublic.SpotifyClient
+﻿using Flurl;
+
+namespace StarRepublic.SpotifyClient
 {
 	public interface IQuery<TResponse>
 	{
-		string Url { get; }
-        object Params { get; }
+        Url GetUrl();
     }
 }

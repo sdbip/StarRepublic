@@ -15,8 +15,7 @@ namespace StarRepublic.SpotifyClient
 
         public async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query)
         {
-            var url = new Url(query.Url)
-                .SetQueryParams(query.Params, Flurl.NullValueHandling.Remove);
+            var url = query.GetUrl();
             return await QueryAsync<TResponse>(url);
         }
 

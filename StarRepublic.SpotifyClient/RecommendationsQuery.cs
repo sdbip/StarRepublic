@@ -1,5 +1,4 @@
-﻿using System;
-using StarRepublic.SpotifyClient.Models.Artists;
+﻿using Flurl;
 using StarRepublic.SpotifyClient.Models.Recommendations;
 
 namespace StarRepublic.SpotifyClient
@@ -9,38 +8,21 @@ namespace StarRepublic.SpotifyClient
         private readonly string? artistId;
         private readonly string? trackId;
 
-        public string Url => "/v1/recommendations";
-        public object Params => new
-        {
-            seed_artists = artistId,
-            seed_tracks = trackId,
-            min_energy = 0.4,
-            min_popularity = 50,
-            market = "US",
-            limit = 100
-        };
-
         public RecommendationsQuery(string? artistId = null, string? trackId = null)
         {
             this.artistId = artistId;
             this.trackId = trackId;
         }
-    }
 
-    public class SearchArtistsQuery : IQuery<SearchArtistResponse>
-    {
-        private readonly string artistName;
-
-        public string Url => "/v1/search";
-        public object Params => new
-        {
-            q = artistName,
-            type = "artist"
-        };
-
-        public SearchArtistsQuery(string name)
-        {
-            artistName = name ?? throw new ArgumentNullException(nameof(name));
-        }
+        public Url GetUrl() => "/v1/recommendations"
+            .SetQueryParams(new
+            {
+                seed_artists = artistId,
+                seed_tracks = trackId,
+                min_energy = 0.4,
+                min_popularity = 50,
+                market = "US",
+                limit = 100
+            });
     }
 }

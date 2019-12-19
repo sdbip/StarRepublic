@@ -21,6 +21,22 @@ namespace StarRepublic.SpotifyClient.Tests
         }
 
         [Test]
+        public void CanDoPaging()
+        {
+            const int smallPageSize = 2;
+            const int smallPageNumber = 1;
+            var largePageQuery = new Paged<Models.Artists.SearchArtistResponse>(new SearchArtistsQuery("Bon Jovi"), smallPageSize + 1, 0);
+            var smallPageQuery = new Paged<Models.Artists.SearchArtistResponse>(new SearchArtistsQuery("Bon Jovi"), smallPageSize, smallPageNumber);
+
+            var largeResult = QuerySync(largePageQuery);
+            var smallResult = QuerySync(smallPageQuery);
+
+            Assert.That(largeResult.Artists.Items.Count, Is.EqualTo(smallPageSize + 1));
+            Assert.That(smallResult.Artists.Items.Count, Is.EqualTo(smallPageSize));
+            Assert.That(smallResult.Artists.Items.First().Id, Is.EqualTo(largeResult.Artists.Items.Skip(smallPageSize * smallPageNumber).First().Id));
+        }
+
+        [Test]
         public void GenresIncludeRock()
         {
             var query = new GenresQuery();
