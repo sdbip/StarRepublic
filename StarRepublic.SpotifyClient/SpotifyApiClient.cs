@@ -16,18 +16,10 @@ namespace StarRepublic.SpotifyClient
 
         private const string BaseUrl = "https://api.spotify.com/";
 
-        public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName, int? limit = null, int? offset = null)
+        public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName)
         {
             var query = new SearchArtistsQuery(artistName);
-            var url = new Url(query.Url).SetQueryParams(query.Params);
-
-            if (limit != null)
-                url = url.SetQueryParam("limit", limit);
-
-            if (offset != null)
-                url = url.SetQueryParam("offset", offset);
-
-            return await QueryAsync<SearchArtistResponse>(url);
+            return await QueryAsync(query);
         }
 
         public async Task<GenresResponse> GetGenres()
