@@ -33,8 +33,6 @@ namespace StarRepublic.SpotifyClient
 
         public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName, int? limit = null, int? offset = null)
         {
-            using var client = GetDefaultClient();
-
             var url = new Url("/v1/search")
                         .SetQueryParam("q", artistName)
                         .SetQueryParam("type", "artist");
@@ -45,26 +43,17 @@ namespace StarRepublic.SpotifyClient
             if (offset != null)
                 url = url.SetQueryParam("offset", offset);
 
-            var response = await client.GetStringAsync(url);
-
-            return JsonConvert.DeserializeObject<SearchArtistResponse>(response);
+            return await Query<SearchArtistResponse>(url);
         }
 
         public async Task<GenresResponse> GetGenres()
         {
-            using var client = GetDefaultClient();
-
             var url = new Url("/v1/recommendations/available-genre-seeds");
-
-            var response = await client.GetStringAsync(url);
-
-            return JsonConvert.DeserializeObject<GenresResponse>(response);
+            return await Query<GenresResponse>(url);
         }
 
         public async Task<RecommendationsResponse> GetRecommendationsAsync(string artistId = null, string trackId = null)
         {
-            using var client = GetDefaultClient();
-
             var url = new Url("/v1/recommendations")
                 .SetQueryParams(new
                 {
@@ -75,10 +64,14 @@ namespace StarRepublic.SpotifyClient
                     market = "US",
                     limit = 100
                 });
+            return await Query<RecommendationsResponse>(url);
+        }
 
+        private async Task<TResponse> Query<TResponse>(Url url)
+        {
+            using var client = GetDefaultClient();
             var response = await client.GetStringAsync(url);
-
-            return JsonConvert.DeserializeObject<RecommendationsResponse>(response);
+            return JsonConvert.DeserializeObject<TResponse>(response);
         }
     }
 }
