@@ -25,8 +25,8 @@ namespace StarRepublic.SpotifyClient.Tests
         {
             const int smallPageSize = 2;
             const int smallPageNumber = 1;
-            var largePageQuery = new Paged<Models.Artists.SearchArtistResponse>(new SearchArtistsQuery("Bon Jovi"), smallPageSize + 1, 0);
-            var smallPageQuery = new Paged<Models.Artists.SearchArtistResponse>(new SearchArtistsQuery("Bon Jovi"), smallPageSize, smallPageNumber);
+            var largePageQuery = new SearchArtistsQuery("Bon Jovi").Paged(pageSize: smallPageSize + 1, page: 0);
+            var smallPageQuery = new SearchArtistsQuery("Bon Jovi").Paged(smallPageSize, smallPageNumber);
 
             var largeResult = QuerySync(largePageQuery);
             var smallResult = QuerySync(smallPageQuery);
@@ -41,7 +41,7 @@ namespace StarRepublic.SpotifyClient.Tests
         {
             const int limit = 2;
             var unlimited = new SearchArtistsQuery("Bon Jovi");
-            var limited = new Limited<Models.Artists.SearchArtistResponse>(unlimited, limit);
+            var limited = unlimited.Limited(limit);
 
             var unlimitedResult = QuerySync(unlimited).Artists;
             var limitedResult = QuerySync(limited).Artists;

@@ -2,7 +2,7 @@
 
 namespace StarRepublic.SpotifyClient
 {
-    public sealed class Paged<TResponse> : IQuery<TResponse>
+    internal sealed class Paged<TResponse> : IQuery<TResponse>
     {
         private readonly IQuery<TResponse> decoratedQuery;
         private readonly int pageSize;

@@ -2,7 +2,7 @@
 
 namespace StarRepublic.SpotifyClient
 {
-    public class Limited<TResponse> : IQuery<TResponse>
+    internal class Limited<TResponse> : IQuery<TResponse>
 	{
 		private readonly IQuery<TResponse> unlimited;
 		private readonly int limit;

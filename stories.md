@@ -10,4 +10,3 @@
 
 - Should I create a WebAPI? Do I need it?
 - Authentication has a message handler. Do I need that for other requests?
-- Make Paged and Limited internal, and add extension instead
