@@ -3,9 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Flurl;
 using Newtonsoft.Json;
-using StarRepublic.SpotifyClient.Models.Artists;
-using StarRepublic.SpotifyClient.Models.Genres;
-using StarRepublic.SpotifyClient.Models.Recommendations;
 
 namespace StarRepublic.SpotifyClient
 {
@@ -15,24 +12,6 @@ namespace StarRepublic.SpotifyClient
         private const string ClientSecret = "8fdd72a5335d46459f27009d50ab9f58";
 
         private const string BaseUrl = "https://api.spotify.com/";
-
-        public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName)
-        {
-            var query = new SearchArtistsQuery(artistName);
-            return await QueryAsync(query);
-        }
-
-        public async Task<GenresResponse> GetGenres()
-        {
-            var query = new GenresQuery();
-            return await QueryAsync(query);
-        }
-
-        public async Task<RecommendationsResponse> GetRecommendationsAsync(string? artistId = null, string? trackId = null)
-        {
-            var query = new RecommendationsQuery(artistId, trackId);
-            return await QueryAsync(query);
-        }
 
         public async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query)
         {

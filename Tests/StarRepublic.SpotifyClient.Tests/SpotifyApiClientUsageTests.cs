@@ -11,9 +11,8 @@ namespace StarRepublic.SpotifyClient.Tests
         [Test]
         public void FindsBonJovi()
         {
-            var artists = client.SearchArtistsAsync("Bon Jovi")
-                .AwaitResult()?
-                .Artists;
+            var query = new SearchArtistsQuery("Bon Jovi");
+            var artists = QuerySync(query).Artists;
 
             Assert.That(artists, Is.Not.Null);
             Assert.That(artists!.Total, Is.EqualTo(artists.Items.Count));
@@ -24,8 +23,8 @@ namespace StarRepublic.SpotifyClient.Tests
         [Test]
         public void GenresIncludeRock()
         {
-            var response = client.GetGenres()
-                .AwaitResult();
+            var query = new GenresQuery();
+            var response = QuerySync(query);
 
             Assert.That(response.Genres.Contains("rock"));
         }
@@ -33,8 +32,8 @@ namespace StarRepublic.SpotifyClient.Tests
         [Test]
         public void GetsRecommendationsWithArtistSeed()
         {
-            var recommendations = client.GetRecommendationsAsync(artistId: "4NHQUGzhtTLFvgF5SZesLK")
-                .AwaitResult();
+            var query = new RecommendationsQuery(artistId: "4NHQUGzhtTLFvgF5SZesLK");
+            var recommendations = QuerySync(query);
 
             Assert.That(recommendations, Is.Not.Null);
             Assert.That(recommendations.Seeds.Count, Is.EqualTo(1));
@@ -44,8 +43,8 @@ namespace StarRepublic.SpotifyClient.Tests
         [Test]
         public void GetsRecommendationsWithTrackSeed()
         {
-            var recommendations = client.GetRecommendationsAsync(trackId: "0c6xIDDpzE81m2q797ordA")
-                .AwaitResult();
+            var query = new RecommendationsQuery(trackId: "0c6xIDDpzE81m2q797ordA");
+            var recommendations = QuerySync(query);
 
             Assert.That(recommendations, Is.Not.Null);
             Assert.That(recommendations.Seeds.Count, Is.EqualTo(1));
@@ -55,12 +54,15 @@ namespace StarRepublic.SpotifyClient.Tests
         [Test]
         public void GetsRecommendationsWithArtistAndTrackSeed()
         {
-            var recommendations = client.GetRecommendationsAsync(artistId: "4NHQUGzhtTLFvgF5SZesLK", trackId: "0c6xIDDpzE81m2q797ordA")
-                .AwaitResult();
+            var query = new RecommendationsQuery(artistId: "4NHQUGzhtTLFvgF5SZesLK", trackId: "0c6xIDDpzE81m2q797ordA");
+            var recommendations = QuerySync(query);
 
             Assert.That(recommendations, Is.Not.Null);
             Assert.That(recommendations.Seeds.Count, Is.EqualTo(2));
             Assert.That(recommendations.Tracks, Is.Not.Empty);
         }
+
+        private TResult QuerySync<TResult>(IQuery<TResult> query) =>
+            client.QueryAsync(query).AwaitResult();
     }
 }

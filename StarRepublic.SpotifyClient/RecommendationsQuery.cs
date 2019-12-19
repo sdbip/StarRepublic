@@ -20,7 +20,7 @@ namespace StarRepublic.SpotifyClient
             limit = 100
         };
 
-        public RecommendationsQuery(string? artistId, string? trackId)
+        public RecommendationsQuery(string? artistId = null, string? trackId = null)
         {
             this.artistId = artistId;
             this.trackId = trackId;
