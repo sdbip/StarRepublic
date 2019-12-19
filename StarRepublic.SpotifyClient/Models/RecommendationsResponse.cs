@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace StarRepublic.SpotifyClient.Models.Recommendations
 {
-    public class ExternalUrls
+    public sealed class ExternalUrls
     {
         [JsonProperty("spotify")]
         public string Spotify { get; set; }
     }
 
-    public class Artist
+    public sealed class Artist
     {
         [JsonProperty("external_urls")]
         public ExternalUrls ExternalUrls { get; set; }
@@ -30,10 +30,10 @@ namespace StarRepublic.SpotifyClient.Models.Recommendations
         public string Uri { get; set; }
     }
 
-    public class Track
+    public sealed class Track
     {
         [JsonProperty("artists")]
-        public IList<Artist> Artists { get; set; }
+        public IReadOnlyCollection<Artist> Artists { get; set; }
 
         [JsonProperty("disc_number")]
         public int DiscNumber { get; set; }
@@ -72,7 +72,7 @@ namespace StarRepublic.SpotifyClient.Models.Recommendations
         public string Uri { get; set; }
     }
 
-    public class Seed
+    public sealed class Seed
     {
         [JsonProperty("initialPoolSize")]
         public int InitialPoolSize { get; set; }
@@ -93,12 +93,12 @@ namespace StarRepublic.SpotifyClient.Models.Recommendations
         public string Type { get; set; }
     }
 
-    public class RecommendationsResponse
+    public sealed class RecommendationsResponse
     {
         [JsonProperty("tracks")]
-        public IList<Track> Tracks { get; set; }
+        public IReadOnlyCollection<Track> Tracks { get; set; }
 
         [JsonProperty("seeds")]
-        public IList<Seed> Seeds { get; set; }
+        public IReadOnlyCollection<Seed> Seeds { get; set; }
     }
 }

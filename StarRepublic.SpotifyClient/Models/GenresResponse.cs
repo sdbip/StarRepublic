@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace StarRepublic.SpotifyClient.Models.Genres
 {
-    public class GenresResponse
+    public sealed class GenresResponse
     {
         [JsonProperty("genres")]
-        public IList<string> Genres { get; set; }
+        public IReadOnlyCollection<string> Genres { get; set; }
     }
 }

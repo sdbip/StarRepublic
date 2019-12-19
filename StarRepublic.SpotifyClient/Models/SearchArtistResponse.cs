@@ -17,7 +17,7 @@ namespace StarRepublic.SpotifyClient.Models.Artists
         public string Href { get; set; }
 
         [JsonProperty("items")]
-        public IList<Artist> Items { get; set; }
+        public IReadOnlyCollection<Artist> Items { get; set; }
 
         [JsonProperty("limit")]
         public int Limit { get; set; }
@@ -41,7 +41,7 @@ namespace StarRepublic.SpotifyClient.Models.Artists
         public ExternalUrls ExternalUrls { get; set; }
 
         [JsonProperty("genres")]
-        public IList<object> Genres { get; set; }
+        public IReadOnlyCollection<object> Genres { get; set; }
 
         [JsonProperty("href")]
         public string Href { get; set; }
@@ -50,7 +50,7 @@ namespace StarRepublic.SpotifyClient.Models.Artists
         public string Id { get; set; }
 
         [JsonProperty("images")]
-        public IList<Image> Images { get; set; }
+        public IReadOnlyCollection<Image> Images { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
