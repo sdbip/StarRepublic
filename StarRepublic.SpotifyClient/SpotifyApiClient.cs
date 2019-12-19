@@ -42,7 +42,7 @@ namespace StarRepublic.SpotifyClient
             if (offset != null)
                 url = url.SetQueryParam("offset", offset);
 
-            return await Query<SearchArtistResponse>(url);
+            return await QueryAsync<SearchArtistResponse>(url);
         }
 
         public async Task<GenresResponse> GetGenres()
@@ -61,10 +61,10 @@ namespace StarRepublic.SpotifyClient
         {
             var url = new Url(query.Url)
                 .SetQueryParams(query.Params, Flurl.NullValueHandling.Remove);
-            return await Query<TResponse>(url);
+            return await QueryAsync<TResponse>(url);
         }
 
-        private async Task<TResponse> Query<TResponse>(Url url)
+        private async Task<TResponse> QueryAsync<TResponse>(Url url)
         {
             using var client = GetDefaultClient();
             var response = await client.GetStringAsync(url);
