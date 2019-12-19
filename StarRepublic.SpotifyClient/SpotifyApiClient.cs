@@ -16,21 +16,6 @@ namespace StarRepublic.SpotifyClient
 
         private const string BaseUrl = "https://api.spotify.com/";
 
-        private static HttpClient GetDefaultClient()
-        {
-            var authHandler = new SpotifyAuthClientCredentialsHttpMessageHandler(
-                ClientId,
-                ClientSecret,
-                new HttpClientHandler());
-
-            var client = new HttpClient(authHandler)
-            {
-                BaseAddress = new Uri(BaseUrl)
-            };
-
-            return client;
-        }
-
         public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName, int? limit = null, int? offset = null)
         {
             var query = new SearchArtistsQuery(artistName);
@@ -69,6 +54,19 @@ namespace StarRepublic.SpotifyClient
             using var client = GetDefaultClient();
             var response = await client.GetStringAsync(url);
             return JsonConvert.DeserializeObject<TResponse>(response);
+        }
+
+        private static HttpClient GetDefaultClient()
+        {
+            var authHandler = new SpotifyAuthClientCredentialsHttpMessageHandler(
+                ClientId,
+                ClientSecret,
+                new HttpClientHandler());
+
+            return new HttpClient(authHandler)
+            {
+                BaseAddress = new Uri(BaseUrl)
+            };
         }
     }
 }
