@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7445B5CA-8EF7-46CD-806E-E00CB9CDA87B}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		stories.md = stories.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactJSApp", "ReactJSApp\ReactJSApp.csproj", "{60CFE2DE-3FFC-4716-90DF-9BD45CDB746C}"
