@@ -37,6 +37,20 @@ namespace StarRepublic.SpotifyClient.Tests
         }
 
         [Test]
+        public void CanLimitResult()
+        {
+            const int limit = 2;
+            var unlimited = new SearchArtistsQuery("Bon Jovi");
+            var limited = new Limited<Models.Artists.SearchArtistResponse>(unlimited, limit);
+
+            var unlimitedResult = QuerySync(unlimited).Artists;
+            var limitedResult = QuerySync(limited).Artists;
+
+            Assert.That(limitedResult.Total, Is.EqualTo(unlimitedResult.Total));
+            Assert.That(limitedResult.Items.Count, Is.EqualTo(limit));
+        }
+
+        [Test]
         public void GenresIncludeRock()
         {
             var query = new GenresQuery();
