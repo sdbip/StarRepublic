@@ -4,7 +4,7 @@ using StarRepublic.SpotifyClient.Models.Recommendations;
 
 namespace StarRepublic.SpotifyClient
 {
-    public class RecommendationsQuery : IQuery<RecommendationsResponse>
+    public sealed class RecommendationsQuery : IQuery<RecommendationsResponse>
     {
         private readonly string artistId;
         private readonly string trackId;
