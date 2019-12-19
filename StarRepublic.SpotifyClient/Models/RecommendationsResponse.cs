@@ -93,7 +93,7 @@ namespace StarRepublic.SpotifyClient.Models.Recommendations
         public string Type { get; set; }
     }
 
-    public class Recommendations
+    public class RecommendationsResponse
     {
         [JsonProperty("tracks")]
         public IList<Track> Tracks { get; set; }

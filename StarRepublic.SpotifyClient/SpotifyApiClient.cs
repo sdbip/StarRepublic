@@ -61,7 +61,7 @@ namespace StarRepublic.SpotifyClient
             return JsonConvert.DeserializeObject<GenresResponse>(response);
         }
 
-        public async Task<Recommendations> GetRecommendationsAsync(string artistId = null, string trackId = null)
+        public async Task<RecommendationsResponse> GetRecommendationsAsync(string artistId = null, string trackId = null)
         {
             using var client = GetDefaultClient();
 
@@ -78,7 +78,7 @@ namespace StarRepublic.SpotifyClient
 
             var response = await client.GetStringAsync(url);
 
-            return JsonConvert.DeserializeObject<Recommendations>(response);
+            return JsonConvert.DeserializeObject<RecommendationsResponse>(response);
         }
     }
 }
