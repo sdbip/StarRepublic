@@ -72,13 +72,15 @@ export const Home = () => {
 			</InputGroup>
 			<Button color="primary" onClick={search}>Search</Button>
 			<Fade in={!resultsVisible} tag="h5" className="mt-3">
-				Search for your favourite artists and they will appear here.
+				Search for your favourite artists or tracks and they will appear here.
 			</Fade>
 			<Fade in={resultsVisible} tag="h5" className="mt-3">
 				<ListGroup>
 					{searchResults.map(item =>
 						<ListGroupItem key={item.id} title={item.id}>
-							<NavLink tag={Link} to={"/recommendations?seed=" + item.id + "&type=" + item.type}>{item.name}</NavLink>
+							<NavLink tag={Link} to={"/recommendations?seed=" + item.id + "&type=" + item.type}>
+								<span className="text-muted">{item.artistName}</span> {item.name}
+							</NavLink>
 						</ListGroupItem>
 					)}
 				</ListGroup>

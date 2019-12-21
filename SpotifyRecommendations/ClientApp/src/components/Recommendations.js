@@ -31,7 +31,7 @@ export class Recommendations extends Component {
 					<ListGroup>
 						{this.state.recommendations.map(item =>
 							<ListGroupItem key={item.id} title={item.id} onClick={() => this.loadRecommendations({ seed: item.id, type: item.type })}>
-								{item.name}
+								<span className="text-muted">{item.artistName}</span> {item.name}
 							</ListGroupItem>
 						)}
 					</ListGroup>

@@ -27,7 +27,7 @@ namespace SpotifyRecommendations.Controllers
 				var client = new SpotifyApiClient();
 				var query = new SearchTracks(track);
 				var result = await client.QueryAsync(query);
-				return Ok(result.Tracks.Items.Select(item => new ItemDto("track") { Id = item.Id, Name = item.Name }));
+				return Ok(result.Tracks.Items.Select(item => new ItemDto("track") { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault().Name }));
 			}
 			else
 			{
@@ -49,13 +49,14 @@ namespace SpotifyRecommendations.Controllers
 			var client = new SpotifyApiClient();
 			var query = new MakeRecommendation(artistId: type == "artist" ? seed : null, trackId: type == "track" ? seed : null);
 			var result = await client.QueryAsync(query);
-			return Ok(result.Tracks.Select(item => new ItemDto("track") { Id = item.Id, Name = item.Name }));
+			return Ok(result.Tracks.Select(item => new ItemDto("track") { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault()?.Name }));
 		}
 
 		public sealed class ItemDto
 		{
-			public string Id { get; set; }
 			public string Type { get; }
+			public string Id { get; set; }
+			public string ArtistName { get; set; }
 			public string Name { get; set; }
 
 			public ItemDto(string type)
