@@ -1,5 +1,5 @@
 #!/bin/bash
 dotnet publish -o publish/ SpotifyRecommendations
 pushd publish > /dev/null
-./SpotifyRecommendations
+dotnet SpotifyRecommendations.dll
 popd > /dev/null
