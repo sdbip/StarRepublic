@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Button, DropdownItem, DropdownMenu, DropdownToggle, Fade, Form, Input, InputGroup, InputGroupButtonDropdown, Label, ListGroup, ListGroupItem } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Input, InputGroup, InputGroupButtonDropdown } from 'reactstrap';
+import { Button, Fade, Form, Label } from 'reactstrap';
 
 const sampleArtists = [
 	'Bon Jovi',
