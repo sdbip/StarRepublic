@@ -34,7 +34,7 @@ export const Home = () => {
 		<Form>
 			<InputGroup>
 				<Label for="search-term">Search for...</Label>
-				<Input type="text" name="searchTerm" id="search-term" value={searchTerm} />
+				<Input type="text" name="searchTerm" id="search-term" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
 				<InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggleDropDown}>
 					<DropdownToggle caret>
 						Sample searches
