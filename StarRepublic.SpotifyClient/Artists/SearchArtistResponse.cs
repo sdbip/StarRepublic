@@ -3,15 +3,17 @@ using Newtonsoft.Json;
 
 /* Hint: Use http://jsonutils.com/ to generate models from JSON responses from the API. */
 
-namespace StarRepublic.SpotifyClient.Models.Artist
+#nullable disable
+
+namespace StarRepublic.SpotifyClient.Artists
 {
-	public class SearchArtistResponse
+	public sealed class SearchArtistResponse
 	{
 		[JsonProperty("artists")]
 		public SearchArtistCollection Artists { get; set; }
 	}
 
-	public class SearchArtistCollection
+	public sealed class SearchArtistCollection
 	{
 		[JsonProperty("href")]
 		public string Href { get; set; }
@@ -35,7 +37,7 @@ namespace StarRepublic.SpotifyClient.Models.Artist
 		public int Total { get; set; }
 	}
 
-	public class Artist
+	public sealed class Artist
 	{
 		[JsonProperty("external_urls")]
 		public ExternalUrls ExternalUrls { get; set; }
@@ -65,13 +67,13 @@ namespace StarRepublic.SpotifyClient.Models.Artist
 		public string Uri { get; set; }
 	}
 
-	public class ExternalUrls
+	public sealed class ExternalUrls
 	{
 		[JsonProperty("spotify")]
 		public string Spotify { get; set; }
 	}
 
-	public class Image
+	public sealed class Image
 	{
 
 		[JsonProperty("height")]

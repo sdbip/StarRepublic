@@ -1,8 +1,7 @@
 ﻿using System;
 using Flurl;
-using StarRepublic.SpotifyClient.Models.Artist;
 
-namespace StarRepublic.SpotifyClient
+namespace StarRepublic.SpotifyClient.Artists
 {
 	public sealed class SearchArtists : IQuery<SearchArtistResponse>
 	{
