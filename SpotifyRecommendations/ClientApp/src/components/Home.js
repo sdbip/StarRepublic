@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { DropdownItem, DropdownMenu, DropdownToggle, ToastBody, ToastHeader, Jumbotron, Card, CardBody } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle, Card, CardBody, Tooltip, NavLink } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Input, InputGroup, InputGroupButtonDropdown } from 'reactstrap';
 import { Button, Fade, Form, Label, Toast } from 'reactstrap';
 import { searchArtists, searchTracks } from './Backend'
+import { Link } from 'react-router-dom';
 
 const sampleArtists = [
 	'Bon Jovi',
@@ -74,8 +75,12 @@ export const Home = () => {
 				Search for your favourite artists and they will appear here.
 			</Fade>
 			<Fade in={resultsVisible} tag="h5" className="mt-3">
-				<ListGroup>{searchResults.map(name =>
-					<ListGroupItem key={name}>{name}</ListGroupItem>)}
+				<ListGroup>
+					{searchResults.map(item =>
+						<ListGroupItem key={item.id} title={item.id}>
+							<NavLink tag={Link} to={"/recommendations?seed=" + item.id + "&type=" + item.type}>{item.name}</NavLink>
+						</ListGroupItem>
+					)}
 				</ListGroup>
 			</Fade>
 			<Fade in={errorMessage != null} tag="h5" className="mt-3">
