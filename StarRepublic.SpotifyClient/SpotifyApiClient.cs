@@ -2,15 +2,16 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using StarRepublic.SpotifyClient.Authentication;
 
 namespace StarRepublic.SpotifyClient
 {
-	public class SpotifyApiClient
+	public sealed class SpotifyApiClient
 	{
 		private const string ClientId = "996d0037680544c987287a9b0470fdbb";
 		private const string ClientSecret = "5a3c92099a324b8f9e45d77e919fec13";
 
-		protected const string BaseUrl = "https://api.spotify.com/";
+		private const string BaseUrl = "https://api.spotify.com/";
 
 		private static HttpClient GetDefaultClient()
 		{
@@ -19,12 +20,10 @@ namespace StarRepublic.SpotifyClient
 				ClientSecret,
 				new HttpClientHandler());
 
-			var client = new HttpClient(authHandler)
+			return new HttpClient(authHandler)
 			{
 				BaseAddress = new Uri(BaseUrl)
 			};
-
-			return client;
 		}
 
 		public async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query)

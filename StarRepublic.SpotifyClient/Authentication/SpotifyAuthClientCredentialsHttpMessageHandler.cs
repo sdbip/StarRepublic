@@ -8,11 +8,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using StarRepublic.SpotifyClient.Models;
 
-namespace StarRepublic.SpotifyClient
+namespace StarRepublic.SpotifyClient.Authentication
 {
-	public class SpotifyAuthClientCredentialsHttpMessageHandler : DelegatingHandler
+	public sealed class SpotifyAuthClientCredentialsHttpMessageHandler : DelegatingHandler
 	{
 		private const string AuthenticationEndpoint = "https://accounts.spotify.com/api/token";
 		private readonly string _clientId;
@@ -88,4 +87,3 @@ namespace StarRepublic.SpotifyClient
 		}
 	}
 }
-
