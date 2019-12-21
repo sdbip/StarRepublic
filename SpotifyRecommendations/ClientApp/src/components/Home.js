@@ -40,7 +40,7 @@ export const Home = () => {
 						Sample searches
 					</DropdownToggle>
 					<DropdownMenu>{sampleArtists.map(name =>
-						<DropdownItem onClick={() => setSearchTerm(name)}>{name}</DropdownItem>)}
+						<DropdownItem key={name} onClick={() => setSearchTerm(name)}>{name}</DropdownItem>)}
 					</DropdownMenu>
 				</InputGroupButtonDropdown>
 			</InputGroup>
@@ -50,7 +50,7 @@ export const Home = () => {
 			</Fade>
 			<Fade in={resultsVisible} tag="h5" className="mt-3">
 				<ListGroup>{searchResults.map(artist =>
-					<ListGroupItem>{artist}</ListGroupItem>)}
+					<ListGroupItem key={artist}>{artist}</ListGroupItem>)}
 				</ListGroup>
 			</Fade>
 		</Form>
