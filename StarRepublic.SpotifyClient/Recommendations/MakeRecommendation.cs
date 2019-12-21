@@ -1,7 +1,6 @@
 ﻿using Flurl;
-using StarRepublic.SpotifyClient.Models.Recommendations;
 
-namespace StarRepublic.SpotifyClient
+namespace StarRepublic.SpotifyClient.Recommendations
 {
 	public sealed class MakeRecommendation : IQuery<RecommendationsResponse>
 	{

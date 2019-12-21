@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 using StarRepublic.SpotifyClient.Artists;
+using StarRepublic.SpotifyClient.Recommendations;
 using StarRepublic.SpotifyClient.Tracks;
 
 namespace StarRepublic.SpotifyClient.Tests

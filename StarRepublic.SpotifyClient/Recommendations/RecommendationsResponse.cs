@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 #nullable disable
 
-namespace StarRepublic.SpotifyClient.Models.Recommendations
+namespace StarRepublic.SpotifyClient.Recommendations
 {
 	public sealed class ExternalUrls
 	{
