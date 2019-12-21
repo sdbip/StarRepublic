@@ -33,9 +33,17 @@ export const Home = () => {
 	const search = async () => {
 		setErrorMessage(null);
 		setResultsVisible(false);
-		var result = await searchTracks(searchTerm);
+		setSearchResults([]);
+
+		var result;
+		var m = searchTerm.match(/^(?:(track:)|(artist:))?\s*(.*)\s*$/);
+		if (m[1]) // track:
+			result = await searchTracks(m[3]);
+		else // artist:
+			result = await searchArtists(m[3]);
+
 		if (result.ok) {
-			setSearchResults(result.tracks);
+			setSearchResults(result.tracks || result.artists);
 			setResultsVisible(true);
 		} else {
 			setErrorMessage(result.error);
@@ -51,8 +59,13 @@ export const Home = () => {
 					<DropdownToggle caret>
 						Sample searches
 					</DropdownToggle>
-					<DropdownMenu>{sampleTracks.map(name =>
-						<DropdownItem key={name} onClick={() => setSearchTerm(name)}>{name}</DropdownItem>)}
+					<DropdownMenu>
+						{sampleArtists.map(name =>
+							<DropdownItem key={name} onClick={() => setSearchTerm('artist: ' + name)}>{name}</DropdownItem>
+						)}
+						{sampleTracks.map(name =>
+							<DropdownItem key={name} onClick={() => setSearchTerm('track: ' + name)}>{name}</DropdownItem>
+						)}
 					</DropdownMenu>
 				</InputGroupButtonDropdown>
 			</InputGroup>
@@ -61,8 +74,8 @@ export const Home = () => {
 				Search for your favourite artists and they will appear here.
 			</Fade>
 			<Fade in={resultsVisible} tag="h5" className="mt-3">
-				<ListGroup>{searchResults.map(artist =>
-					<ListGroupItem key={artist}>{artist}</ListGroupItem>)}
+				<ListGroup>{searchResults.map(name =>
+					<ListGroupItem key={name}>{name}</ListGroupItem>)}
 				</ListGroup>
 			</Fade>
 			<Fade in={errorMessage != null} tag="h5" className="mt-3">
