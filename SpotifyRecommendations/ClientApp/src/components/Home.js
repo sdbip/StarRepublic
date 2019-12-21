@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle, ToastBody, ToastHeader, Jumbotron, Card, CardBody } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Input, InputGroup, InputGroupButtonDropdown } from 'reactstrap';
-import { Button, Fade, Form, Label } from 'reactstrap';
+import { Button, Fade, Form, Label, Toast } from 'reactstrap';
 import { searchArtists } from './Backend'
 
 const sampleArtists = [
@@ -18,16 +18,22 @@ export const Home = () => {
 	const [resultsVisible, setResultsVisible] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
+	const [errorMessage, setErrorMessage] = useState(null);
 
 	const toggleDropDown = () => {
 		setDropdownOpen(!dropdownOpen);
 	};
 
 	const search = async () => {
+		setErrorMessage(null);
 		setResultsVisible(false);
 		var result = await searchArtists(searchTerm);
-		setSearchResults(result);
-		setResultsVisible(true);
+		if (result.ok) {
+			setSearchResults(result.artists);
+			setResultsVisible(true);
+		} else {
+			setErrorMessage(result.error);
+		}
 	};
 
 	return (
@@ -52,6 +58,11 @@ export const Home = () => {
 				<ListGroup>{searchResults.map(artist =>
 					<ListGroupItem key={artist}>{artist}</ListGroupItem>)}
 				</ListGroup>
+			</Fade>
+			<Fade in={errorMessage != null} tag="h5" className="mt-3">
+				<Card body inverse color="danger">
+					<CardBody>{errorMessage || ''}</CardBody>
+				</Card>
 			</Fade>
 		</Form>
 	);
