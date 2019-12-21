@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StarRepublic.SpotifyClient;
 
 namespace SpotifyRecommendations.Controllers
 {
@@ -11,10 +13,11 @@ namespace SpotifyRecommendations.Controllers
 		[HttpGet("search")]
 		public async Task<ActionResult<IEnumerable<string>>> Search([FromQuery] string searchTerm)
 		{
-			if (searchTerm is null)
-				return await Task.FromResult(new[] { "Bon Jovi", "Bonnie Raitt", "Joan Jett" });
-			else
-				return await Task.FromResult(new[] { searchTerm, searchTerm });
+			if (string.IsNullOrWhiteSpace(searchTerm))
+				return BadRequest("Mandatory query property searchTerm not specified");
+			var client = new SpotifyApiClient();
+			var result = await client.SearchArtistsAsync(searchTerm);
+			return Ok(result.Artists.Items.Select(artist => artist.Name));
 		}
 	}
 }
