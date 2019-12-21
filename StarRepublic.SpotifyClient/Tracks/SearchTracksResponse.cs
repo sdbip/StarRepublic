@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
+#nullable disable
+
 namespace StarRepublic.SpotifyClient.Tracks
 {
 	public sealed class ExternalUrls

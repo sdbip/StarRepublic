@@ -14,7 +14,7 @@ namespace SpotifyRecommendations.Controllers
 	public sealed class SpotifyController : ControllerBase
 	{
 		[HttpGet("search")]
-		public async Task<ActionResult<IEnumerable<ItemDto>>> Search([FromQuery] string artist = null, [FromQuery]string track = null)
+		public async Task<ActionResult<IEnumerable<ItemDto>>> Search([FromQuery] string? artist = null, [FromQuery]string? track = null)
 		{
 			if (string.IsNullOrWhiteSpace(artist) && string.IsNullOrWhiteSpace(track))
 				return BadRequest("One of artist or track must be specified");
@@ -23,15 +23,15 @@ namespace SpotifyRecommendations.Controllers
 
 			if (string.IsNullOrWhiteSpace(artist))
 			{
-				var query = new SearchTracks(track);
+				var query = new SearchTracks(track!);
 				var result = await QuerySpotifyAsync(query);
-				return Ok(result.Tracks.Items.Select(item => new ItemDto(ItemType.Track) { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault().Name }));
+				return Ok(result.Tracks.Items.Select(item => new ItemDto(ItemType.Track, item.Id, item.Name, item.Artists.FirstOrDefault().Name)));
 			}
 			else
 			{
 				var query = new SearchArtists(artist);
 				var result = await QuerySpotifyAsync(query);
-				return Ok(result.Artists.Items.Select(item => new ItemDto(ItemType.Artist) { Id = item.Id, Name = item.Name }));
+				return Ok(result.Artists.Items.Select(item => new ItemDto(ItemType.Artist, item.Id, item.Name)));
 			}
 		}
 
@@ -43,7 +43,7 @@ namespace SpotifyRecommendations.Controllers
 
 			var query = new MakeRecommendation(type, seed);
 			var result = await QuerySpotifyAsync(query);
-			return Ok(result.Tracks.Select(item => new ItemDto(ItemType.Track) { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault()?.Name }));
+			return Ok(result.Tracks.Select(item => new ItemDto(ItemType.Track, item.Id, item.Name, item.Artists.FirstOrDefault()?.Name)));
 		}
 
 		private async Task<TResponse> QuerySpotifyAsync<TResponse>(IQuery<TResponse> query)
@@ -55,13 +55,16 @@ namespace SpotifyRecommendations.Controllers
 		public sealed class ItemDto
 		{
 			public ItemType Type { get; }
-			public string Id { get; set; }
-			public string ArtistName { get; set; }
-			public string Name { get; set; }
+			public string Id { get; }
+			public string Name { get; }
+			public string? ArtistName { get; }
 
-			public ItemDto(ItemType type)
+			public ItemDto(ItemType type, string id, string name, string? artistName = null)
 			{
 				Type = type;
+				Id = id;
+				Name = name;
+				ArtistName = artistName;
 			}
 		}
 	}
