@@ -23,16 +23,14 @@ namespace SpotifyRecommendations.Controllers
 
 			if (string.IsNullOrWhiteSpace(artist))
 			{
-				var client = new SpotifyApiClient();
 				var query = new SearchTracks(track);
-				var result = await client.QueryAsync(query);
+				var result = await QuerySpotifyAsync(query);
 				return Ok(result.Tracks.Items.Select(item => new ItemDto(ItemType.Track) { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault().Name }));
 			}
 			else
 			{
-				var client = new SpotifyApiClient();
 				var query = new SearchArtists(artist);
-				var result = await client.QueryAsync(query);
+				var result = await QuerySpotifyAsync(query);
 				return Ok(result.Artists.Items.Select(item => new ItemDto(ItemType.Artist) { Id = item.Id, Name = item.Name }));
 			}
 		}
@@ -43,10 +41,15 @@ namespace SpotifyRecommendations.Controllers
 			if (string.IsNullOrWhiteSpace(seed))
 				return BadRequest($"Missing required parameter {nameof(seed)}");
 
-			var client = new SpotifyApiClient();
 			var query = new MakeRecommendation(type, seed);
-			var result = await client.QueryAsync(query);
+			var result = await QuerySpotifyAsync(query);
 			return Ok(result.Tracks.Select(item => new ItemDto(ItemType.Track) { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault()?.Name }));
+		}
+
+		private async Task<TResponse> QuerySpotifyAsync<TResponse>(IQuery<TResponse> query)
+		{
+			var client = new SpotifyApiClient();
+			return await client.QueryAsync(query);
 		}
 
 		public sealed class ItemDto
