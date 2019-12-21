@@ -29,5 +29,19 @@ namespace StarRepublic.SpotifyClient.Tests
 			Assert.That(tracks.Limit, Is.EqualTo(tracks.Items.Count));
 			Assert.That(tracks.Items.Select(artist => artist.Name).Contains("Highway to Hell"));
 		}
+
+		[Test]
+		public void CanLimitResult()
+		{
+			const int limit = 2;
+			var unlimited = new SearchArtists("Bon Jovi");
+			var limited = unlimited.Limited(limit);
+
+			var unlimitedResult = client.QueryAsync(unlimited).GetAwaiter().GetResult().Artists;
+			var limitedResult = client.QueryAsync(limited).GetAwaiter().GetResult().Artists;
+
+			Assert.That(limitedResult.Total, Is.EqualTo(unlimitedResult.Total));
+			Assert.That(limitedResult.Items.Count, Is.EqualTo(limit));
+		}
 	}
 }

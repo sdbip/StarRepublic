@@ -27,19 +27,11 @@ namespace StarRepublic.SpotifyClient
 			return client;
 		}
 
-		public async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query, int? limit = null, int? offset = null)
+		public async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query)
 		{
 			using var client = GetDefaultClient();
 			var url = query.GetQueryUrl();
-
-			if (limit != null)
-				url = url.SetQueryParam("limit", limit);
-
-			if (offset != null)
-				url = url.SetQueryParam("offset", offset);
-
 			var response = await client.GetStringAsync(url);
-
 			return JsonConvert.DeserializeObject<TResponse>(response);
 		}
 	}
