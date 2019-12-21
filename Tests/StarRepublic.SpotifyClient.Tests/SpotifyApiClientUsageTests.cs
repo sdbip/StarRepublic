@@ -11,7 +11,7 @@ namespace StarRepublic.SpotifyClient.Tests
 		public void FindsBonJovi()
 		{
 			var query = new SearchArtists("Bon Jovi");
-			var artists = client.QueryAsync(query).GetAwaiter().GetResult()?.Artists;
+			var artists = QuerySync(query)?.Artists;
 
 			Assert.That(artists, Is.Not.Null);
 			Assert.That(artists.Total, Is.EqualTo(artists.Items.Count));
@@ -23,7 +23,7 @@ namespace StarRepublic.SpotifyClient.Tests
 		public void FindsTracks()
 		{
 			var query = new SearchTracks("Highway to Hell");
-			var tracks = client.QueryAsync(query).GetAwaiter().GetResult()?.Tracks;
+			var tracks = QuerySync(query)?.Tracks;
 
 			Assert.That(tracks, Is.Not.Null);
 			Assert.That(tracks.Limit, Is.EqualTo(tracks.Items.Count));
@@ -37,11 +37,14 @@ namespace StarRepublic.SpotifyClient.Tests
 			var unlimited = new SearchArtists("Bon Jovi");
 			var limited = unlimited.Limited(limit);
 
-			var unlimitedResult = client.QueryAsync(unlimited).GetAwaiter().GetResult().Artists;
-			var limitedResult = client.QueryAsync(limited).GetAwaiter().GetResult().Artists;
+			var unlimitedResult = QuerySync(unlimited).Artists;
+			var limitedResult = QuerySync(limited).Artists;
 
 			Assert.That(limitedResult.Total, Is.EqualTo(unlimitedResult.Total));
 			Assert.That(limitedResult.Items.Count, Is.EqualTo(limit));
 		}
+
+		private TResult QuerySync<TResult>(IQuery<TResult> query) =>
+			 client.QueryAsync(query).GetAwaiter().GetResult();
 	}
 }
