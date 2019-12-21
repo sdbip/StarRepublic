@@ -1,5 +1,6 @@
 using System.Linq;
 using NUnit.Framework;
+using StarRepublic.SpotifyClient.Tracks;
 
 namespace StarRepublic.SpotifyClient.Tests
 {

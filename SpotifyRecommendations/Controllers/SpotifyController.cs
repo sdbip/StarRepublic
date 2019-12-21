@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StarRepublic.SpotifyClient;
+using StarRepublic.SpotifyClient.Tracks;
 
 namespace SpotifyRecommendations.Controllers
 {

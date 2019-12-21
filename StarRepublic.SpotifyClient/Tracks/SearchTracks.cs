@@ -1,8 +1,7 @@
 ﻿using System;
 using Flurl;
-using StarRepublic.SpotifyClient.Models.Tracks;
 
-namespace StarRepublic.SpotifyClient
+namespace StarRepublic.SpotifyClient.Tracks
 {
 	public sealed class SearchTracks : IQuery<SearchTrackResponse>
 	{
