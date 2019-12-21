@@ -17,5 +17,15 @@ namespace StarRepublic.SpotifyClient.Tests
 			Assert.That(artists.Items.Select(artist => artist.Name).Contains("Bon Jovi"));
 			Assert.That(artists.Items.Select(artist => artist.Name).Contains("Jon Bon Jovi"));
 		}
+
+		[Test]
+		public void FindsTracks()
+		{
+			var tracks = client.SearchTracksAsync("Highway to Hell").GetAwaiter().GetResult()?.Tracks;
+
+			Assert.That(tracks, Is.Not.Null);
+			Assert.That(tracks.Limit, Is.EqualTo(tracks.Items.Count));
+			Assert.That(tracks.Items.Select(artist => artist.Name).Contains("Highway to Hell"));
+		}
 	}
 }
