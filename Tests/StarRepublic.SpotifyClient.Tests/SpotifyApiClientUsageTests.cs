@@ -50,7 +50,7 @@ namespace StarRepublic.SpotifyClient.Tests
 		[Test]
 		public void GetsRecommendationsWithArtistSeed()
 		{
-			var query = new MakeRecommendation(artistId: "4NHQUGzhtTLFvgF5SZesLK");
+			var query = new MakeRecommendation(ItemType.Artist, "4NHQUGzhtTLFvgF5SZesLK");
 			var recommendations = QuerySync(query);
 
 			Assert.That(recommendations, Is.Not.Null);
@@ -61,22 +61,11 @@ namespace StarRepublic.SpotifyClient.Tests
 		[Test]
 		public void GetsRecommendationsWithTrackSeed()
 		{
-			var query = new MakeRecommendation(trackId: "0c6xIDDpzE81m2q797ordA");
+			var query = new MakeRecommendation(ItemType.Track, "0c6xIDDpzE81m2q797ordA");
 			var recommendations = QuerySync(query);
 
 			Assert.That(recommendations, Is.Not.Null);
 			Assert.That(recommendations.Seeds.Count, Is.EqualTo(1));
-			Assert.That(recommendations.Tracks, Is.Not.Empty);
-		}
-
-		[Test]
-		public void GetsRecommendationsWithArtistAndTrackSeed()
-		{
-			var query = new MakeRecommendation(artistId: "4NHQUGzhtTLFvgF5SZesLK", trackId: "0c6xIDDpzE81m2q797ordA");
-			var recommendations = QuerySync(query);
-
-			Assert.That(recommendations, Is.Not.Null);
-			Assert.That(recommendations.Seeds.Count, Is.EqualTo(2));
 			Assert.That(recommendations.Tracks, Is.Not.Empty);
 		}
 

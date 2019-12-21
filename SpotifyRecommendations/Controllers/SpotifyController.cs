@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -27,41 +26,39 @@ namespace SpotifyRecommendations.Controllers
 				var client = new SpotifyApiClient();
 				var query = new SearchTracks(track);
 				var result = await client.QueryAsync(query);
-				return Ok(result.Tracks.Items.Select(item => new ItemDto("track") { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault().Name }));
+				return Ok(result.Tracks.Items.Select(item => new ItemDto(ItemType.Track) { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault().Name }));
 			}
 			else
 			{
 				var client = new SpotifyApiClient();
 				var query = new SearchArtists(artist);
 				var result = await client.QueryAsync(query);
-				return Ok(result.Artists.Items.Select(item => new ItemDto("artist") { Id = item.Id, Name = item.Name }));
+				return Ok(result.Artists.Items.Select(item => new ItemDto(ItemType.Artist) { Id = item.Id, Name = item.Name }));
 			}
 		}
 
 		[HttpGet("make-recommendations")]
-		public async Task<ActionResult<IEnumerable<ItemDto>>> MakeRecommendations([FromQuery] string seed = null, [FromQuery] string type = null)
+		public async Task<ActionResult<IEnumerable<ItemDto>>> MakeRecommendations([FromQuery] string seed, [FromQuery] ItemType type)
 		{
 			if (string.IsNullOrWhiteSpace(seed))
 				return BadRequest($"Missing required parameter {nameof(seed)}");
-			if (string.IsNullOrWhiteSpace(type))
-				return BadRequest($"Missing required parameter {nameof(type)}");
 
 			var client = new SpotifyApiClient();
-			var query = new MakeRecommendation(artistId: type == "artist" ? seed : null, trackId: type == "track" ? seed : null);
+			var query = new MakeRecommendation(type, seed);
 			var result = await client.QueryAsync(query);
-			return Ok(result.Tracks.Select(item => new ItemDto("track") { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault()?.Name }));
+			return Ok(result.Tracks.Select(item => new ItemDto(ItemType.Track) { Id = item.Id, Name = item.Name, ArtistName = item.Artists.FirstOrDefault()?.Name }));
 		}
 
 		public sealed class ItemDto
 		{
-			public string Type { get; }
+			public ItemType Type { get; }
 			public string Id { get; set; }
 			public string ArtistName { get; set; }
 			public string Name { get; set; }
 
-			public ItemDto(string type)
+			public ItemDto(ItemType type)
 			{
-				Type = type ?? throw new ArgumentNullException(nameof(type));
+				Type = type;
 			}
 		}
 	}
