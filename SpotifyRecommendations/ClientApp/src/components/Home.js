@@ -1,20 +1,88 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { DropdownItem, DropdownMenu, DropdownToggle, ToastBody, ToastHeader, Jumbotron, Card, CardBody } from 'reactstrap';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Input, InputGroup, InputGroupButtonDropdown } from 'reactstrap';
+import { Button, Fade, Form, Label, Toast } from 'reactstrap';
+import { searchArtists, searchTracks } from './Backend'
 
-export class Home extends Component {
-  static displayName = Home.name;
+const sampleArtists = [
+	'Bon Jovi',
+	'Bonnie Tyler',
+	'Eric Clapton',
+	'Janis Joplin',
+	'Whitesnake'
+];
 
-  render () {
-    return (
-      <div>
-        <h1>Hello, Music Lovers!</h1>
-        <p>To help you get started, we have also set up:</p>
-        <ul>
-          <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-          <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-          <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-        </ul>
-        <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
-      </div>
-    );
-  }
+const sampleTracks = [
+	'Born to Run',
+	'Highway to Hell',
+	'Total Eclipse of the Heart'
+];
+
+export const Home = () => {
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [resultsVisible, setResultsVisible] = useState(false);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+	const [errorMessage, setErrorMessage] = useState(null);
+
+	const toggleDropDown = () => {
+		setDropdownOpen(!dropdownOpen);
+	};
+
+	const search = async () => {
+		setErrorMessage(null);
+		setResultsVisible(false);
+		setSearchResults([]);
+
+		var result;
+		var m = searchTerm.match(/^(?:(track:)|(artist:))?\s*(.*)\s*$/);
+		if (m[1]) // track:
+			result = await searchTracks(m[3]);
+		else // artist:
+			result = await searchArtists(m[3]);
+
+		if (result.ok) {
+			setSearchResults(result.tracks || result.artists);
+			setResultsVisible(true);
+		} else {
+			setErrorMessage(result.error);
+		}
+	};
+
+	return (
+		<Form>
+			<InputGroup>
+				<Label for="search-term">Search for...</Label>
+				<Input type="text" name="searchTerm" id="search-term" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
+				<InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggleDropDown}>
+					<DropdownToggle caret>
+						Sample searches
+					</DropdownToggle>
+					<DropdownMenu>
+						{sampleArtists.map(name =>
+							<DropdownItem key={name} onClick={() => setSearchTerm('artist: ' + name)}>{name}</DropdownItem>
+						)}
+						{sampleTracks.map(name =>
+							<DropdownItem key={name} onClick={() => setSearchTerm('track: ' + name)}>{name}</DropdownItem>
+						)}
+					</DropdownMenu>
+				</InputGroupButtonDropdown>
+			</InputGroup>
+			<Button color="primary" onClick={search}>Search</Button>
+			<Fade in={!resultsVisible} tag="h5" className="mt-3">
+				Search for your favourite artists and they will appear here.
+			</Fade>
+			<Fade in={resultsVisible} tag="h5" className="mt-3">
+				<ListGroup>{searchResults.map(name =>
+					<ListGroupItem key={name}>{name}</ListGroupItem>)}
+				</ListGroup>
+			</Fade>
+			<Fade in={errorMessage != null} tag="h5" className="mt-3">
+				<Card body inverse color="danger">
+					<CardBody>{errorMessage || ''}</CardBody>
+				</Card>
+			</Fade>
+		</Form>
+	);
 }
