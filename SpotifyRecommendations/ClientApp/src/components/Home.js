@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { DropdownItem, DropdownMenu, DropdownToggle, Input, InputGroup, InputGroupButtonDropdown, Label } from 'reactstrap';
 
+const sampleArtists = [
+	'Bon Jovi',
+	'Bonnie Tyler',
+	'Eric Clapton',
+	'Janis Joplin',
+	'Whitesnake'
+];
+
 export const Home = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -16,13 +24,9 @@ export const Home = () => {
 			<InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle}>
 				<DropdownToggle caret>
 					Sample searches
-        </DropdownToggle>
-				<DropdownMenu>
-					<DropdownItem onClick={() => setSearchTerm('Bon Jovi')}>Bon Jovi</DropdownItem>
-					<DropdownItem onClick={() => setSearchTerm('Bonnie Tyler')}>Bonnie Tyler</DropdownItem>
-					<DropdownItem onClick={() => setSearchTerm('Eric Clapton')}>Eric Clapton</DropdownItem>
-					<DropdownItem onClick={() => setSearchTerm('Janis Joplin')}>Janis Joplin</DropdownItem>
-					<DropdownItem onClick={() => setSearchTerm('Whitesnake')}>Whitesnake</DropdownItem>
+				</DropdownToggle>
+				<DropdownMenu>{sampleArtists.map(name =>
+					<DropdownItem onClick={() => setSearchTerm(name)}>{name}</DropdownItem>)}
 				</DropdownMenu>
 			</InputGroupButtonDropdown>
 		</InputGroup>
