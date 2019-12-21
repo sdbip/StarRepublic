@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Flurl;
 using Newtonsoft.Json;
-using StarRepublic.SpotifyClient.Models;
+using StarRepublic.SpotifyClient.Models.Artist;
 
 namespace StarRepublic.SpotifyClient
 {

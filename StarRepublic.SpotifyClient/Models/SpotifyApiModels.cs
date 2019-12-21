@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 /* Hint: Use http://jsonutils.com/ to generate models from JSON responses from the API. */
 
-namespace StarRepublic.SpotifyClient.Models
+namespace StarRepublic.SpotifyClient.Models.Artist
 {
 	public class SearchArtistResponse
 	{
