@@ -3,6 +3,7 @@ import { DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Input, InputGroup, InputGroupButtonDropdown } from 'reactstrap';
 import { Button, Fade, Form, Label } from 'reactstrap';
+import { searchArtists } from './Backend'
 
 const sampleArtists = [
 	'Bon Jovi',
@@ -16,12 +17,16 @@ export const Home = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [resultsVisible, setResultsVisible] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
 
 	const toggleDropDown = () => {
 		setDropdownOpen(!dropdownOpen);
 	};
 
-	const search = () => {
+	const search = async () => {
+		setResultsVisible(false);
+		var result = await searchArtists(searchTerm);
+		setSearchResults(result);
 		setResultsVisible(true);
 	};
 
@@ -44,7 +49,7 @@ export const Home = () => {
 				Search for your favourite artists and they will appear here.
 			</Fade>
 			<Fade in={resultsVisible} tag="h5" className="mt-3">
-				<ListGroup>{sampleArtists.map(artist =>
+				<ListGroup>{searchResults.map(artist =>
 					<ListGroupItem>{artist}</ListGroupItem>)}
 				</ListGroup>
 			</Fade>
