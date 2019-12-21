@@ -2,11 +2,12 @@
 
 /* Hint: Use http://jsonutils.com/ to generate models from JSON responses from the API. */
 
-namespace StarRepublic.SpotifyClient.Models
-{
-	public class AuthenticationResponse
-	{
+#nullable disable
 
+namespace StarRepublic.SpotifyClient.Authentication
+{
+	public sealed class AuthenticationResponse
+	{
 		[JsonProperty("access_token")]
 		public string AccessToken { get; set; }
 
@@ -18,6 +19,5 @@ namespace StarRepublic.SpotifyClient.Models
 
 		[JsonProperty("refresh_token")]
 		public string RefreshToken { get; set; }
-
 	}
 }

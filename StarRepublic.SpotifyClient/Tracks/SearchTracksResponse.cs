@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace StarRepublic.SpotifyClient.Models.Tracks
+namespace StarRepublic.SpotifyClient.Tracks
 {
-	public class ExternalUrls
+	public sealed class ExternalUrls
 	{
 		[JsonProperty("spotify")]
 		public string Spotify { get; set; }
 	}
 
-	public class Artist
+	public sealed class Artist
 	{
 		[JsonProperty("external_urls")]
 		public ExternalUrls ExternalUrls { get; set; }
@@ -30,7 +30,7 @@ namespace StarRepublic.SpotifyClient.Models.Tracks
 		public string Uri { get; set; }
 	}
 
-	public class Image
+	public sealed class Image
 	{
 		[JsonProperty("height")]
 		public int Height { get; set; }
@@ -42,7 +42,7 @@ namespace StarRepublic.SpotifyClient.Models.Tracks
 		public int Width { get; set; }
 	}
 
-	public class Album
+	public sealed class Album
 	{
 		[JsonProperty("album_type")]
 		public string AlbumType { get; set; }
@@ -84,13 +84,13 @@ namespace StarRepublic.SpotifyClient.Models.Tracks
 		public string Uri { get; set; }
 	}
 
-	public class ExternalIds
+	public sealed class ExternalIds
 	{
 		[JsonProperty("isrc")]
 		public string Isrc { get; set; }
 	}
 
-	public class Item
+	public sealed class Item
 	{
 		[JsonProperty("album")]
 		public Album Album { get; set; }
@@ -144,7 +144,7 @@ namespace StarRepublic.SpotifyClient.Models.Tracks
 		public string Uri { get; set; }
 	}
 
-	public class Tracks
+	public sealed class Tracks
 	{
 		[JsonProperty("href")]
 		public string Href { get; set; }
@@ -168,7 +168,7 @@ namespace StarRepublic.SpotifyClient.Models.Tracks
 		public int Total { get; set; }
 	}
 
-	public class SearchTrackResponse
+	public sealed class SearchTrackResponse
 	{
 		[JsonProperty("tracks")]
 		public Tracks Tracks { get; set; }
