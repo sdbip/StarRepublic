@@ -3,7 +3,7 @@ import { DropdownItem, DropdownMenu, DropdownToggle, ToastBody, ToastHeader, Jum
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Input, InputGroup, InputGroupButtonDropdown } from 'reactstrap';
 import { Button, Fade, Form, Label, Toast } from 'reactstrap';
-import { searchArtists } from './Backend'
+import { searchArtists, searchTracks } from './Backend'
 
 const sampleArtists = [
 	'Bon Jovi',
@@ -11,6 +11,12 @@ const sampleArtists = [
 	'Eric Clapton',
 	'Janis Joplin',
 	'Whitesnake'
+];
+
+const sampleTracks = [
+	'Born to Run',
+	'Highway to Hell',
+	'Total Eclipse of the Heart'
 ];
 
 export const Home = () => {
@@ -27,9 +33,9 @@ export const Home = () => {
 	const search = async () => {
 		setErrorMessage(null);
 		setResultsVisible(false);
-		var result = await searchArtists(searchTerm);
+		var result = await searchTracks(searchTerm);
 		if (result.ok) {
-			setSearchResults(result.artists);
+			setSearchResults(result.tracks);
 			setResultsVisible(true);
 		} else {
 			setErrorMessage(result.error);
@@ -45,7 +51,7 @@ export const Home = () => {
 					<DropdownToggle caret>
 						Sample searches
 					</DropdownToggle>
-					<DropdownMenu>{sampleArtists.map(name =>
+					<DropdownMenu>{sampleTracks.map(name =>
 						<DropdownItem key={name} onClick={() => setSearchTerm(name)}>{name}</DropdownItem>)}
 					</DropdownMenu>
 				</InputGroupButtonDropdown>
