@@ -32,7 +32,7 @@ namespace StarRepublic.SpotifyClient
 
 		public async Task<SearchTrackResponse> SearchTracksAsync(string trackName, int? limit = null, int? offset = null)
 		{
-			var client = GetDefaultClient();
+			using var client = GetDefaultClient();
 
 			var url = new Url("/v1/search")
 						.SetQueryParam("q", trackName)
@@ -51,7 +51,7 @@ namespace StarRepublic.SpotifyClient
 
 		public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName, int? limit = null, int? offset = null)
 		{
-			var client = GetDefaultClient();
+			using var client = GetDefaultClient();
 
 			var url = new Url("/v1/search")
 						.SetQueryParam("q", artistName)
