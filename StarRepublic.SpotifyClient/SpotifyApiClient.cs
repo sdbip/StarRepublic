@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Flurl;
 using Newtonsoft.Json;
 using StarRepublic.SpotifyClient.Models.Artist;
 using StarRepublic.SpotifyClient.Models.Tracks;
@@ -32,30 +31,20 @@ namespace StarRepublic.SpotifyClient
 
 		public async Task<SearchTrackResponse> SearchTracksAsync(string trackName, int? limit = null, int? offset = null)
 		{
-			using var client = GetDefaultClient();
-
-			var url = new Url("/v1/search")
-						.SetQueryParam("q", trackName)
-						.SetQueryParam("type", "track");
-
-			if (limit != null)
-				url = url.SetQueryParam("limit", limit);
-
-			if (offset != null)
-				url = url.SetQueryParam("offset", offset);
-
-			var response = await client.GetStringAsync(url);
-
-			return JsonConvert.DeserializeObject<SearchTrackResponse>(response);
+			var query = new SearchTracks(trackName);
+			return await QueryAsync(query, limit, offset);
 		}
 
 		public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName, int? limit = null, int? offset = null)
 		{
-			using var client = GetDefaultClient();
+			var query = new SearchArtists(artistName);
+			return await QueryAsync(query, limit, offset);
+		}
 
-			var url = new Url("/v1/search")
-						.SetQueryParam("q", artistName)
-						.SetQueryParam("type", "artist");
+		private async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query, int? limit, int? offset)
+		{
+			using var client = GetDefaultClient();
+			var url = query.GetQueryUrl();
 
 			if (limit != null)
 				url = url.SetQueryParam("limit", limit);
@@ -65,7 +54,7 @@ namespace StarRepublic.SpotifyClient
 
 			var response = await client.GetStringAsync(url);
 
-			return JsonConvert.DeserializeObject<SearchArtistResponse>(response);
+			return JsonConvert.DeserializeObject<TResponse>(response);
 		}
 	}
 }
