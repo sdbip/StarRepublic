@@ -13,7 +13,7 @@ namespace StarRepublic.SpotifyClient
 			this.artistName = artistName ?? throw new ArgumentNullException(nameof(artistName));
 		}
 
-		public Url GetQueryUrl() => new Url("/v1/search")
+		public Url GetQueryUrl() => "/v1/search"
 			.SetQueryParam("q", artistName)
 			.SetQueryParam("type", "artist");
 	}
