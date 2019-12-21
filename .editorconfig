@@ -12,7 +12,3 @@ csharp_new_line_before_open_brace = all
 [*.json]
 indent_size = 2
 indent_style = space
-
-[*.js]
-indent_size = 2
-indent_style = space
