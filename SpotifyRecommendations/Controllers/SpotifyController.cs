@@ -21,13 +21,15 @@ namespace SpotifyRecommendations.Controllers
 			if (string.IsNullOrWhiteSpace(artist))
 			{
 				var client = new SpotifyApiClient();
-				var result = await client.SearchTracksAsync(track);
+				var query = new SearchTracks(track);
+				var result = await client.QueryAsync(query);
 				return Ok(result.Tracks.Items.Select(item => item.Name));
 			}
 			else
 			{
 				var client = new SpotifyApiClient();
-				var result = await client.SearchArtistsAsync(artist);
+				var query = new SearchArtists(artist);
+				var result = await client.QueryAsync(query);
 				return Ok(result.Artists.Items.Select(item => item.Name));
 			}
 		}

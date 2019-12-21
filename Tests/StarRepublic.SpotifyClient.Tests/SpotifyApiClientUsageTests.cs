@@ -10,7 +10,8 @@ namespace StarRepublic.SpotifyClient.Tests
 		[Test]
 		public void FindsBonJovi()
 		{
-			var artists = client.SearchArtistsAsync("Bon Jovi").GetAwaiter().GetResult()?.Artists;
+			var query = new SearchArtists("Bon Jovi");
+			var artists = client.QueryAsync(query).GetAwaiter().GetResult()?.Artists;
 
 			Assert.That(artists, Is.Not.Null);
 			Assert.That(artists.Total, Is.EqualTo(artists.Items.Count));
@@ -21,7 +22,8 @@ namespace StarRepublic.SpotifyClient.Tests
 		[Test]
 		public void FindsTracks()
 		{
-			var tracks = client.SearchTracksAsync("Highway to Hell").GetAwaiter().GetResult()?.Tracks;
+			var query = new SearchTracks("Highway to Hell");
+			var tracks = client.QueryAsync(query).GetAwaiter().GetResult()?.Tracks;
 
 			Assert.That(tracks, Is.Not.Null);
 			Assert.That(tracks.Limit, Is.EqualTo(tracks.Items.Count));

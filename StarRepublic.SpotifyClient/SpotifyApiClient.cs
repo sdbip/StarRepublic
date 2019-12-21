@@ -2,8 +2,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using StarRepublic.SpotifyClient.Models.Artist;
-using StarRepublic.SpotifyClient.Models.Tracks;
 
 namespace StarRepublic.SpotifyClient
 {
@@ -29,19 +27,7 @@ namespace StarRepublic.SpotifyClient
 			return client;
 		}
 
-		public async Task<SearchTrackResponse> SearchTracksAsync(string trackName, int? limit = null, int? offset = null)
-		{
-			var query = new SearchTracks(trackName);
-			return await QueryAsync(query, limit, offset);
-		}
-
-		public async Task<SearchArtistResponse> SearchArtistsAsync(string artistName, int? limit = null, int? offset = null)
-		{
-			var query = new SearchArtists(artistName);
-			return await QueryAsync(query, limit, offset);
-		}
-
-		private async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query, int? limit, int? offset)
+		public async Task<TResponse> QueryAsync<TResponse>(IQuery<TResponse> query, int? limit = null, int? offset = null)
 		{
 			using var client = GetDefaultClient();
 			var url = query.GetQueryUrl();
