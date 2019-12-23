@@ -3,7 +3,7 @@ using Flurl;
 
 namespace StarRepublic.SpotifyClient.Artists
 {
-	public sealed class SearchArtists : IQuery<SearchArtistResponse>
+	public sealed class SearchArtists : IQuery<SearchArtistsResponse>
 	{
 		private readonly string artistName;
 

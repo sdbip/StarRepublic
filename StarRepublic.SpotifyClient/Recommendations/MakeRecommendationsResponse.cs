@@ -95,7 +95,7 @@ namespace StarRepublic.SpotifyClient.Recommendations
 		public string Type { get; set; }
 	}
 
-	public sealed class RecommendationsResponse
+	public sealed class MakeRecommendationsResponse
 	{
 		[JsonProperty("tracks")]
 		public IReadOnlyCollection<Track> Tracks { get; set; }

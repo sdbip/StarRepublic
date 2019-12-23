@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace StarRepublic.SpotifyClient.Artists
 {
-	public sealed class SearchArtistResponse
+	public sealed class SearchArtistsResponse
 	{
 		[JsonProperty("artists")]
 		public SearchArtistCollection Artists { get; set; }

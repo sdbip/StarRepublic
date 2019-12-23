@@ -5,7 +5,7 @@ namespace StarRepublic.SpotifyClient.Recommendations
 {
 	public enum ItemType { Artist, Track }
 
-	public sealed class MakeRecommendation : IQuery<RecommendationsResponse>
+	public sealed class MakeRecommendation : IQuery<MakeRecommendationsResponse>
 	{
 		private readonly ItemType type;
 		private readonly string seed;
