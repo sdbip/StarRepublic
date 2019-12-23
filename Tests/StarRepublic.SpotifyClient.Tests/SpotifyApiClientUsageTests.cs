@@ -14,7 +14,7 @@ namespace StarRepublic.SpotifyClient.Tests
 		public void FindsBonJovi()
 		{
 			var query = new SearchArtists("Bon Jovi");
-			var artists = QuerySync(query)?.Artists;
+			var artists = QuerySync(query).Artists;
 
 			Assert.That(artists, Is.Not.Null);
 			Assert.That(artists.Total, Is.EqualTo(artists.Items.Count));
@@ -26,7 +26,7 @@ namespace StarRepublic.SpotifyClient.Tests
 		public void FindsTracks()
 		{
 			var query = new SearchTracks("Highway to Hell");
-			var tracks = QuerySync(query)?.Tracks;
+			var tracks = QuerySync(query).Tracks;
 
 			Assert.That(tracks, Is.Not.Null);
 			Assert.That(tracks.Limit, Is.EqualTo(tracks.Items.Count));

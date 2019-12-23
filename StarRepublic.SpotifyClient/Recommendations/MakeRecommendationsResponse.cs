@@ -1,6 +1,15 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
+// Not happy about disabling nullability here, but also not sure how
+// to fix it.
+//
+// Since this is the result of parsing JSON (using Newtonsoft.Json),
+// it is obviously not possible to guarantee that the properties are
+// not null. Yet using this and checking for null everywhere is
+// impractical. I'm just going to assume that the Spotify API keeps
+// its promise.
+
 #nullable disable
 
 namespace StarRepublic.SpotifyClient.Recommendations
